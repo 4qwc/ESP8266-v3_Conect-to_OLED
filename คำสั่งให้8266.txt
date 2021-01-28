@@ -1,0 +1,94 @@
+การลง Firmware
+1> Download Firm ware ตามเวอร์ชั่น
+esp8266 https://micropython.org/download/esp8266/
+esp32 https://micropython.org/download/esp32/
+
+2> Download Python
+pip install esptool
+python -m pip install esptool
+C:\Python38\python.exe -m pip install esptool
+
+3> Check Port ของอุปกรณ์
+คลิกขวาที่ My Computer > Manage > Device Manger > Ports (COM & LPT)
+
+###############################
+ESP8266
+
+Command for Flash Bootloader
+----------------------------------------------
+Erase /ลบข้อมูล
+
+python -m esptool --chip esp8266 --port COM8 erase_flash
+
+Flash Bootloader
+
+python -m esptool --chip esp8266 --port COM8 --baud 115200 write_flash --flash_size=detect -fm dio 0 esp8266-20200911-v1.13.bin
+
+ESP32
+
+Command for Flash Bootloader
+----------------------------------------------
+Erase
+
+python -m esptool --chip esp32 --port COM8 erase_flash
+
+Flash Bootloader
+
+python -m esptool --chip esp32 --port COM8 --baud 460800 write_flash -z 0x1000 esp32-idf3-20200902-v1.13.bin
+
+5 > ลง Thonny https://thonny.org/
+-	Tools > Options > Interpreter > MicroPython (Generic) > Select COM PORT
+
+6> ต่อ wifi
+
+Connect to WiFi
+
+import network
+sta_if = network.WLAN(network.STA_IF)
+sta_if.active(True)
+sta_if.scan() 
+sta_if.connect("Uncle Engineer2(2.4GHz)", "212224236") 
+sta_if.isconnected()  
+sta_if.ifconfig()
+
+
+
+###############################
+
+
+
+# TEST1 relay coltrol
+from machine import Pin
+import time
+
+RLPIN = 2
+relay = Pin(RLPIN, Pin.OUT)
+
+ON = 0
+OFF = 1
+ 
+def turn_on():
+    relay.value(ON)
+    print("RELAY ON")
+    
+def trun_off():
+    relay.value(OFF)
+    print("RELAY OFF")
+    
+while True:
+    turn_on()
+    time.sleep(10)
+    trun_off()
+    time.sleep(10)
+
+
+คำสั่ง connected Wi-Fi
+Connect to WiFi
+
+import network
+sta_if = network.WLAN(network.STA_IF)
+sta_if.active(True)
+sta_if.scan() 
+sta_if.connect("ใส่ชื่อ Wi-Fi", "ใส่พาสเวิร์ด") 
+sta_if.isconnected() คำสั่ง เช็คว่าเชื่อมต่อ True, Fald
+sta_if.ifconfig()  คำสั่งเช็ค IP 

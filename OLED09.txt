@@ -1,0 +1,46 @@
+ไลบราลี่ 
+
+code ตัวอย่าง  ใช้งาน
+
+from machine import Pin, I2C
+import ssd1306
+from time import sleep
+
+# ESP32 Pin assignment 
+i2c = I2C(-1, scl=Pin(22), sda=Pin(21))
+
+# ESP8266 Pin assignment
+#i2c = I2C(-1, scl=Pin(5), sda=Pin(4))
+
+#กำหนดความกว้างและความสูงของ OLED
+oled_width = 128 
+oled_height = 64
+oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c)
+
+เขียนข้อความ หลังจาก text ()ข้อความเริ่มต้นที่ x = 0 และ y = 0
+oled.text('Hello, World 1!', 0, 0)
+oled.text('Hello, World 2!', 0, 10)
+oled.text('Hello, World 3!', 0, 20)
+        
+oled.show()
+
+#function
+
+	oled.fill(1)# 1 = เติมสีหน้าจอทั้งหมด
+		      0 = ล้างสีหน้าจอ(จอดำ)
+	pixel(0, 0, 1)#การสร้างจุดพิกเซลระบุตำแหน่ง x, y, 1ค่าสี
+
+	oled.invert(True)#สลับสี OLED:
+
+	oled.invert(False)# หากต้องการกลับไปใช้สีเดิม
+
+ฟังก์ชันยอมรับเฉพาะตัวแปรประเภท String เป็นข้อความ 
+การอ่านเซ็นเซอร์มักจะเก็บไว้ในตัวแปร int หรือ float
+แสดงการอ่านของเซ็นเซอร์และถูกเก็บไว้ในตัวแปร int หรือ float 
+ควรแปลงเป็น String 
+ในการแปลงข้อมูลเป็นสตริงคุณสามารถใช้ไฟล์ str()
+
+temperature = 12.34
+temperature_string = str(temperature)	
+oled.text(temperature_string, 0, 0)
+
